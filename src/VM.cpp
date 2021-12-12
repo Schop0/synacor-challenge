@@ -51,6 +51,10 @@ VM::execute(void)
 
             case  6: op_jmp();
             break;
+            case  7: op_jt();
+            break;
+            case  8: op_jf();
+            break;
             case 19: op_out();
             break;
             case 21: // noop
@@ -92,4 +96,37 @@ void
 VM::op_jmp() 
 {
     program_counter = fetch();
+    cerr << "Jump: " << program_counter << endl;
+}
+
+void
+VM::op_jt(void)
+{
+    MEMORY_T condition = fetch();
+    cerr << "If (" << condition << " != 0) ";
+    if(condition != 0)
+    {
+        op_jmp();
+    }
+    else
+    {
+        cerr << endl;
+        (void) fetch();
+    }
+}
+
+void
+VM::op_jf(void)
+{
+    MEMORY_T condition = fetch();
+    cerr << "If (" << condition << " == 0) ";
+    if(condition == 0)
+    {
+        op_jmp();
+    }
+    else
+    {
+        cerr << endl;
+        (void) fetch();
+    }
 }

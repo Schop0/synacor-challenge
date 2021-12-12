@@ -26,4 +26,6 @@ private:
     MEMORY_T fetch(void);
     void op_out(void);
     void op_jmp(void);
+    void op_jt(void);
+    void op_jf(void);
 };
