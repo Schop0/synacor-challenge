@@ -68,9 +68,15 @@ VM::fetch(void)
     int16_t number = memory[program_counter++];
 
     // Check validity
-    if (number >= 32776 )
+    if (number >= INVALID_VALUE )
     {
         throw number;
+    }
+
+    // Register access
+    if (number > REGISTER_START)
+    {
+        return registers[number - REGISTER_START];
     }
 
     return number;
