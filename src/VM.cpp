@@ -72,7 +72,7 @@ VM::execute(void)
 }
 
 uint16_t
-VM::fetch(void)
+VM::fetch(bool translate_register)
 {
     uint16_t number = memory[program_counter++];
 
@@ -83,12 +83,35 @@ VM::fetch(void)
     }
 
     // Register access
-    if (number >= REGISTER_START)
+    if (translate_register)
     {
-        return registers[number - REGISTER_START];
+        if (number >= REGISTER_START)
+        {
+            return registers[number - REGISTER_START];
+        }
     }
 
     return number;
+}
+
+uint16_t
+VM::fetch(void)
+{
+    return fetch(true);
+}
+
+uint16_t
+VM::fetch_regaddress(void)
+{
+    uint16_t address = fetch(false);
+
+    // Assert address is a register
+    if(address < REGISTER_START)
+    {
+        throw address;
+    }
+
+    return address;
 }
 
 void

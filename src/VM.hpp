@@ -24,6 +24,8 @@ private:
     bool load(uint16_t *data, size_t size);
     int execute(void);
     uint16_t fetch(void);
+    uint16_t fetch(bool translate_register);
+    uint16_t fetch_regaddress(void);
     void op_out(void);
     void op_jmp(void);
     void op_jt(void);
