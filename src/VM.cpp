@@ -43,7 +43,7 @@ VM::execute(void)
 {
     while (true)
     {
-        const uint16_t opcode = fetch();
+        const MEMORY_T opcode = fetch();
         switch (opcode)
         {
             case  0: // halt
