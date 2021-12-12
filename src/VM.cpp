@@ -1,8 +1,45 @@
 #include "VM.hpp"
 #include <iostream>
+#include <algorithm>
+#include <cstring>
+
+using namespace std;
 
 int
-VM::run(void)
+VM::run(MEMORY_T *data, size_t size)
+{
+    if (load(data, size))
+    {
+        return execute();
+    }
+    else
+    {
+        cerr << "Error: failed to load" << endl;
+        return ERROR;
+    }
+}
+
+bool
+VM::load(MEMORY_T *data, size_t size)
+{
+    if (size % sizeof(MEMORY_T))
+    {
+        cerr << "Error: Unaligned data. Size must be a multiple of " << sizeof(MEMORY_T) << endl;
+        return false;
+    }
+
+    if (size > sizeof memory)
+    {
+        cerr << "Error: size > sizeof memory (" << size << " > " << sizeof memory << ")" << endl;
+        return false;
+    }
+
+    memcpy(memory, data, size);
+    return true;
+}
+
+int
+VM::execute(void)
 {
     while (true)
     {
@@ -17,7 +54,7 @@ VM::run(void)
             case 21: // noop
             break;
 
-            default: std::cerr << std::endl << "Unknown opcode: " << opcode << std::endl;
+            default: cerr << endl << "Unknown opcode: " << opcode << endl;
             return opcode;
         }
     }
@@ -26,21 +63,7 @@ VM::run(void)
 uint16_t
 VM::read_number(void)
 {
-    // Open if needed
-    if (!binary.is_open())
-    {
-        std::cerr << std::endl << "Opening binary file: " << path << std::endl;
-        binary.open(path);
-    }
-
-    // Read word
-    char buf[2];
-    binary.read(buf, 2);
-
-    // Assemble number
-    int16_t number = 0;
-    number += buf[0];
-    number += buf[1] * UINT8_MAX;
+    int16_t number = memory[program_counter++];
 
     // Check validity
     if (number >= 32776 )
@@ -54,5 +77,5 @@ VM::read_number(void)
 void
 VM::op_out(uint16_t character)
 {
-    std::cout << (char) character;
+    cout << (char) character;
 }
