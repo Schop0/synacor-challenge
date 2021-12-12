@@ -18,6 +18,7 @@ private:
 
     bool load(MEMORY_T *data, size_t size);
     int execute(void);
-    uint16_t read_number(void);
-    void op_out(uint16_t character);
+    uint16_t fetch(void);
+    void op_out(void);
+    void op_jmp(void);
 };

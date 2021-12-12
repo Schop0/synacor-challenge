@@ -43,13 +43,15 @@ VM::execute(void)
 {
     while (true)
     {
-        const uint16_t opcode = read_number();
+        const uint16_t opcode = fetch();
         switch (opcode)
         {
             case  0: // halt
             return OK;
 
-            case 19: op_out(read_number());
+            case  6: op_jmp();
+            break;
+            case 19: op_out();
             break;
             case 21: // noop
             break;
@@ -61,7 +63,7 @@ VM::execute(void)
 }
 
 uint16_t
-VM::read_number(void)
+VM::fetch(void)
 {
     int16_t number = memory[program_counter++];
 
@@ -75,7 +77,13 @@ VM::read_number(void)
 }
 
 void
-VM::op_out(uint16_t character)
+VM::op_out()
 {
-    cout << (char) character;
+    cout << (char) fetch();
+}
+
+void
+VM::op_jmp() 
+{
+    program_counter = fetch();
 }
