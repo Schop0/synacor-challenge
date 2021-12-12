@@ -5,6 +5,11 @@
 
 using namespace std;
 
+VM::VM()
+{
+    memset(registers, 0, sizeof registers);
+}
+
 int
 VM::run(uint16_t *data, size_t size)
 {

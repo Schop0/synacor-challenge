@@ -7,6 +7,7 @@ enum ExitStatus { OK, ERROR };
 class VM
 {
 public:
+    VM();
     int run(uint16_t *data, size_t size);
 
 private:
