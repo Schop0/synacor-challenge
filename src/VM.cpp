@@ -78,7 +78,7 @@ VM::fetch(void)
     }
 
     // Register access
-    if (number > REGISTER_START)
+    if (number >= REGISTER_START)
     {
         return registers[number - REGISTER_START];
     }
