@@ -6,7 +6,7 @@
 using namespace std;
 
 int
-VM::run(MEMORY_T *data, size_t size)
+VM::run(uint16_t *data, size_t size)
 {
     if (load(data, size))
     {
@@ -20,11 +20,11 @@ VM::run(MEMORY_T *data, size_t size)
 }
 
 bool
-VM::load(MEMORY_T *data, size_t size)
+VM::load(uint16_t *data, size_t size)
 {
-    if (size % sizeof(MEMORY_T))
+    if (size % sizeof(uint16_t))
     {
-        cerr << "Error: Unaligned data. Size must be a multiple of " << sizeof(MEMORY_T) << endl;
+        cerr << "Error: Unaligned data. Size must be a multiple of " << sizeof(uint16_t) << endl;
         return false;
     }
 
@@ -43,7 +43,7 @@ VM::execute(void)
 {
     while (true)
     {
-        const MEMORY_T opcode = fetch();
+        const uint16_t opcode = fetch();
         switch (opcode)
         {
             case  0: // halt
@@ -69,7 +69,7 @@ VM::execute(void)
 uint16_t
 VM::fetch(void)
 {
-    int16_t number = memory[program_counter++];
+    uint16_t number = memory[program_counter++];
 
     // Check validity
     if (number >= INVALID_VALUE )
@@ -102,7 +102,7 @@ VM::op_jmp()
 void
 VM::op_jt(void)
 {
-    MEMORY_T condition = fetch();
+    uint16_t condition = fetch();
     cerr << "If (" << condition << " != 0) ";
     if(condition != 0)
     {
@@ -118,7 +118,7 @@ VM::op_jt(void)
 void
 VM::op_jf(void)
 {
-    MEMORY_T condition = fetch();
+    uint16_t condition = fetch();
     cerr << "If (" << condition << " == 0) ";
     if(condition == 0)
     {

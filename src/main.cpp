@@ -12,7 +12,7 @@ int main(int argc, char **argv)
         return ERROR;
     }
 
-    MEMORY_T program[MEM_ELEMENTS];
+    uint16_t program[MEM_ELEMENTS];
     int status = ERROR;
 
     ifstream file(argv[1], ios::binary | ios::ate);
