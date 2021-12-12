@@ -54,6 +54,8 @@ VM::execute(void)
             case  0: // halt
             return OK;
 
+            case  1: op_set();
+            break;
             case  6: op_jmp();
             break;
             case  7: op_jt();
@@ -115,6 +117,24 @@ VM::fetch_regaddress(void)
 }
 
 void
+VM::set_register(uint16_t reg, uint16_t value)
+{
+    // Translate address to index
+    if (reg >= REGISTER_START)
+    {
+        reg -= REGISTER_START;
+    }
+
+    // Bounds check
+    if (reg >= REG_ELEMENTS)
+    {
+        throw reg;
+    }
+
+    registers[reg] = value;
+}
+
+void
 VM::op_out()
 {
     cout << (char) fetch();
@@ -157,4 +177,13 @@ VM::op_jf(void)
         cerr << endl;
         (void) fetch();
     }
+}
+
+void
+VM::op_set(void)
+{
+    uint16_t reg = fetch_regaddress();
+    uint16_t val = fetch();
+
+    set_register(reg, val);
 }
