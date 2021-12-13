@@ -62,6 +62,8 @@ VM::execute(void)
             break;
             case  8: op_jf();
             break;
+            case  9: op_add();
+            break;
             case 19: op_out();
             break;
             case 21: // noop
@@ -116,6 +118,11 @@ VM::fetch_regaddress(void)
     return address;
 }
 
+uint16_t VM::fetch_address(void)
+{
+    return fetch(false);
+}
+
 void
 VM::set_register(uint16_t reg, uint16_t value)
 {
@@ -132,6 +139,19 @@ VM::set_register(uint16_t reg, uint16_t value)
     }
 
     registers[reg] = value;
+}
+
+void
+VM::set(uint16_t address, uint16_t value)
+{
+    if (address >= REGISTER_START)
+    {
+        set_register(address, value);
+    }
+    else
+    {
+        memory[address] = value;
+    }
 }
 
 void
@@ -186,4 +206,11 @@ VM::op_set(void)
     uint16_t val = fetch();
 
     set_register(reg, val);
+}
+
+void
+VM::op_add(void)
+{
+    uint16_t address = fetch_address();
+    set(address, fetch() + fetch());
 }
