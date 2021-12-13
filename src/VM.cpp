@@ -56,6 +56,8 @@ VM::execute(void)
 
             case  1: op_set();
             break;
+            case  4: op_eq();
+            break;
             case  6: op_jmp();
             break;
             case  7: op_jt();
@@ -213,4 +215,11 @@ VM::op_add(void)
 {
     uint16_t address = fetch_address();
     set(address, fetch() + fetch());
+}
+
+void
+VM::op_eq(void)
+{
+    uint16_t address = fetch_address();
+    set(address, fetch() == fetch());
 }

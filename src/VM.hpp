@@ -35,4 +35,5 @@ private:
     void op_jf(void);
     void op_set(void);
     void op_add(void);
+    void op_eq(void);
 };
