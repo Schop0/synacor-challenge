@@ -308,7 +308,7 @@ void VM::op_or(void)
 void VM::op_not(void)
 {
     uint16_t address = fetch_address();
-    set(address, ~fetch());
+    set(address, ~fetch() & INT16_MAX);
 }
 
 void VM::op_rmem(void)
