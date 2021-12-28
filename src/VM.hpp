@@ -40,6 +40,7 @@ private:
     void op_set(void);
     void op_add(void);
     void op_eq(void);
+    void op_gt(void);
     void op_push(void);
     void op_pop(void);
 };
