@@ -329,7 +329,10 @@ void VM::op_wmem(void)
 
 void VM::op_call(void)
 {
-    op_unknown(17);
+    cerr << "Call from: " << program_counter << " ";
+    uint16_t address = fetch();
+    push(program_counter);
+    jump(address);
 }
 
 void VM::op_ret(void)
