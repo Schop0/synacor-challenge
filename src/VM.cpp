@@ -266,7 +266,8 @@ void
 VM::op_add(void)
 {
     uint16_t address = fetch_address();
-    set(address, fetch() + fetch());
+    uint16_t value = modulo_15bit(fetch() + fetch());
+    set(address, value);
 }
 
 void
@@ -296,7 +297,8 @@ void VM::op_pop(void)
 void VM::op_mult(void)
 {
     uint16_t address = fetch_address();
-    set(address, fetch() * fetch());
+    uint16_t value = modulo_15bit(fetch() * fetch());
+    set(address, value);
 }
 
 void VM::op_mod(void)
