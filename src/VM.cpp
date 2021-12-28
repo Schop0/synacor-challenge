@@ -283,27 +283,32 @@ void VM::op_pop(void)
 
 void VM::op_mult(void)
 {
-    op_unknown(10);
+    uint16_t address = fetch_address();
+    set(address, fetch() * fetch());
 }
 
 void VM::op_mod(void)
 {
-    op_unknown(11);
+    uint16_t address = fetch_address();
+    set(address, fetch() % fetch());
 }
 
 void VM::op_and(void)
 {
-    op_unknown(12);
+    uint16_t address = fetch_address();
+    set(address, fetch() & fetch());
 }
 
 void VM::op_or(void)
 {
-    op_unknown(13);
+    uint16_t address = fetch_address();
+    set(address, fetch() | fetch());
 }
 
 void VM::op_not(void)
 {
-    op_unknown(14);
+    uint16_t address = fetch_address();
+    set(address, ~fetch());
 }
 
 void VM::op_rmem(void)
