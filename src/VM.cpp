@@ -56,6 +56,10 @@ VM::execute(void)
 
             case  1: op_set();
             break;
+            case  2: op_push();
+            break;
+            case  3: op_pop();
+            break;
             case  4: op_eq();
             break;
             case  6: op_jmp();
@@ -157,6 +161,20 @@ VM::set(uint16_t address, uint16_t value)
 }
 
 void
+VM::push(uint16_t value)
+{
+    stack.push(value);
+}
+
+uint16_t
+VM::pop(void)
+{
+    const uint16_t value = stack.top();
+    stack.pop();
+    return value;
+}
+
+void
 VM::op_out()
 {
     cout << (char) fetch();
@@ -222,4 +240,15 @@ VM::op_eq(void)
 {
     uint16_t address = fetch_address();
     set(address, fetch() == fetch());
+}
+
+void
+VM::op_push(void)
+{
+    push(fetch());
+}
+
+void VM::op_pop(void)
+{
+    set(fetch_address(),pop());
 }
