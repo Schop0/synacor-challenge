@@ -132,20 +132,6 @@ VM::fetch(void)
     return fetch(true);
 }
 
-uint16_t
-VM::fetch_regaddress(void)
-{
-    uint16_t address = fetch(false);
-
-    // Assert address is a register
-    if(address < REGISTER_START)
-    {
-        throw address;
-    }
-
-    return address;
-}
-
 uint16_t VM::fetch_address(void)
 {
     return fetch(false);
@@ -256,7 +242,7 @@ VM::op_jf(void)
 void
 VM::op_set(void)
 {
-    uint16_t reg = fetch_regaddress();
+    uint16_t reg = fetch_address();
     uint16_t val = fetch();
 
     set_register(reg, val);
