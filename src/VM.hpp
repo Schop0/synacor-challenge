@@ -43,4 +43,15 @@ private:
     void op_gt(void);
     void op_push(void);
     void op_pop(void);
+    void op_mult(void);
+    void op_mod(void);
+    void op_and(void);
+    void op_or(void);
+    void op_not(void);
+    void op_rmem(void);
+    void op_wmem(void);
+    void op_call(void);
+    void op_ret(void);
+    void op_in(void);
+    void op_unknown(uint16_t opcode);
 };

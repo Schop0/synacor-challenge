@@ -72,12 +72,32 @@ VM::execute(void)
             break;
             case  9: op_add();
             break;
+            case 10: op_mult();
+            break;
+            case 11: op_mod();
+            break;
+            case 12: op_and();
+            break;
+            case 13: op_or();
+            break;
+            case 14: op_not();
+            break;
+            case 15: op_rmem();
+            break;
+            case 16: op_wmem();
+            break;
+            case 17: op_call();
+            break;
+            case 18: op_ret();
+            break;
             case 19: op_out();
+            break;
+            case 20: op_in();
             break;
             case 21: // noop
             break;
 
-            default: cerr << endl << "Unknown opcode: " << opcode << endl;
+            default: op_unknown(opcode);
             return opcode;
         }
     }
@@ -259,4 +279,60 @@ VM::op_push(void)
 void VM::op_pop(void)
 {
     set(fetch_address(),pop());
+}
+
+void VM::op_mult(void)
+{
+    op_unknown(10);
+}
+
+void VM::op_mod(void)
+{
+    op_unknown(11);
+}
+
+void VM::op_and(void)
+{
+    op_unknown(12);
+}
+
+void VM::op_or(void)
+{
+    op_unknown(13);
+}
+
+void VM::op_not(void)
+{
+    op_unknown(14);
+}
+
+void VM::op_rmem(void)
+{
+    op_unknown(15);
+}
+
+void VM::op_wmem(void)
+{
+    op_unknown(16);
+}
+
+void VM::op_call(void)
+{
+    op_unknown(17);
+}
+
+void VM::op_ret(void)
+{
+    op_unknown(18);
+}
+
+void VM::op_in(void)
+{
+    op_unknown(20);
+}
+
+void VM::op_unknown(uint16_t opcode)
+{
+    cerr << endl << "Unknown opcode: " << opcode << endl;
+    exit(opcode);
 }
