@@ -33,6 +33,8 @@ private:
     void set(uint16_t address, uint16_t value);
     void push(uint16_t value);
     uint16_t pop(void);
+    void jump(uint16_t address);
+
     void op_out(void);
     void op_jmp(void);
     void op_jt(void);

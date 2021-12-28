@@ -197,16 +197,22 @@ VM::pop(void)
 }
 
 void
+VM::jump(uint16_t address)
+{
+    program_counter = address;
+    cerr << "Jump: " << program_counter << endl;
+}
+
+void
 VM::op_out()
 {
     cout << (char) fetch();
 }
 
 void
-VM::op_jmp() 
+VM::op_jmp()
 {
-    program_counter = fetch();
-    cerr << "Jump: " << program_counter << endl;
+    jump(fetch_address());
 }
 
 void
