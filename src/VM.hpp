@@ -34,6 +34,7 @@ private:
     void push(uint16_t value);
     uint16_t pop(void);
     void jump(uint16_t address);
+    uint16_t modulo_15bit(uint16_t value);
 
     void op_out(void);
     void op_jmp(void);

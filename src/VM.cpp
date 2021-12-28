@@ -203,6 +203,12 @@ VM::jump(uint16_t address)
     cerr << "Jump: " << program_counter << endl;
 }
 
+uint16_t
+VM::modulo_15bit(uint16_t value)
+{
+    return value & INT16_MAX;
+}
+
 void
 VM::op_out()
 {
@@ -314,7 +320,8 @@ void VM::op_or(void)
 void VM::op_not(void)
 {
     uint16_t address = fetch_address();
-    set(address, ~fetch() & INT16_MAX);
+    uint16_t value = modulo_15bit(~fetch());
+    set(address, value);
 }
 
 void VM::op_rmem(void)
