@@ -341,7 +341,9 @@ void VM::op_ret(void)
 
 void VM::op_in(void)
 {
-    op_unknown(20);
+    uint16_t address = fetch_address();
+    uint16_t value =  cin.get();
+    set(address, value);
 }
 
 void VM::op_unknown(uint16_t opcode)
