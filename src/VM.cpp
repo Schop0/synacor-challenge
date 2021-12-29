@@ -320,7 +320,9 @@ void VM::op_not(void)
 
 void VM::op_rmem(void)
 {
-    op_unknown(15);
+    uint16_t address = fetch_address();
+    uint16_t value = read_address(fetch());
+    set(address, value);
 }
 
 void VM::op_wmem(void)
