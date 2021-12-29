@@ -2,3 +2,5 @@
 *.exe
 .vscode
 *.out
+*.o
+synacor-challenge
