@@ -192,7 +192,6 @@ void
 VM::jump(uint16_t address)
 {
     program_counter = address;
-    cerr << "Jump: " << program_counter << endl;
 }
 
 uint16_t
@@ -217,14 +216,12 @@ void
 VM::op_jt(void)
 {
     uint16_t condition = fetch();
-    cerr << "If (" << condition << " != 0) ";
     if(condition != 0)
     {
         op_jmp();
     }
     else
     {
-        cerr << endl;
         (void) fetch();
     }
 }
@@ -233,14 +230,12 @@ void
 VM::op_jf(void)
 {
     uint16_t condition = fetch();
-    cerr << "If (" << condition << " == 0) ";
     if(condition == 0)
     {
         op_jmp();
     }
     else
     {
-        cerr << endl;
         (void) fetch();
     }
 }
@@ -334,7 +329,6 @@ void VM::op_wmem(void)
 
 void VM::op_call(void)
 {
-    cerr << "Call from: " << program_counter << " ";
     uint16_t address = fetch();
     push(program_counter);
     jump(address);
