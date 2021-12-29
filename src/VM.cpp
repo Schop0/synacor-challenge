@@ -342,7 +342,7 @@ void VM::op_call(void)
 
 void VM::op_ret(void)
 {
-    op_unknown(18);
+    program_counter = pop();
 }
 
 void VM::op_in(void)
