@@ -327,7 +327,9 @@ void VM::op_rmem(void)
 
 void VM::op_wmem(void)
 {
-    op_unknown(16);
+    uint16_t address = fetch();
+    uint16_t value = fetch();
+    set(address, value);
 }
 
 void VM::op_call(void)
