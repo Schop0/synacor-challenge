@@ -106,7 +106,13 @@ VM::execute(void)
 uint16_t
 VM::fetch(void)
 {
-    uint16_t number = fetch_address();
+    return read(program_counter++);
+}
+
+uint16_t
+VM::read(uint16_t address)
+{
+    uint16_t number = read_address(address);
 
     // Register access
     if (number >= REGISTER_START)
@@ -120,13 +126,21 @@ VM::fetch(void)
 uint16_t
 VM::fetch_address(void)
 {
-    uint16_t number = memory[program_counter++];
+    return read_address(program_counter++);
+}
+
+uint16_t
+VM::read_address(uint16_t address)
+{
+    uint16_t number = memory[address];
 
     // Check validity
     if (number >= INVALID_VALUE )
     {
         throw number;
     }
+
+    return number;
 }
 
 void
